@@ -1,0 +1,6 @@
+__pycache__/
+xtensa-esp32-elf-gcc-5.2.0/
+*o
+*.bin
+*.elf
+*.pyc
