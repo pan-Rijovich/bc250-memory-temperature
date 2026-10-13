@@ -44,10 +44,14 @@ from bc250_smu import Bc250Smu
 from unlock import unlock
 
 PAYLOAD_START = 0x0003AA9C
-QUEUE_3_MSG_5_HANDLER = 0x0003AAC4
+QUEUE_3_MSG_5_HANDLER = 0x0003ab34
+QUEUE_3_MSG_6_HANDLER = 0x0003ac34
+QUEUE_3_MSG_7_HANDLER = 0x0003ad54
 PAYLOAD_FILE = "SMUPayload.bin"
 
 QUEUE_3_MSG_5_HANDLER_REG = 0x0000748C
+QUEUE_3_MSG_6_HANDLER_REG = 0x00007494
+QUEUE_3_MSG_7_HANDLER_REG = 0x0000749c
 
 def patch_smu_block(smu, start_addr, path):
     """Write a binary payload to SMU memory as 32-bit little-endian words."""
@@ -92,9 +96,29 @@ def main():
             QUEUE_3_MSG_5_HANDLER,
         )
 
+        smu.smu_write32(
+            QUEUE_3_MSG_6_HANDLER_REG,
+            QUEUE_3_MSG_6_HANDLER,
+        )
+
+        smu.smu_write32(
+            QUEUE_3_MSG_7_HANDLER_REG,
+            QUEUE_3_MSG_7_HANDLER,
+        )
+
         print(
             "Successfully patched queue_3_msg_5_handler "
             f"-> 0x{QUEUE_3_MSG_5_HANDLER:08X}"
+        )
+
+        print(
+            "Successfully patched queue_3_msg_6_handler "
+            f"-> 0x{QUEUE_3_MSG_6_HANDLER:08X}"
+        )
+
+        print(
+            "Successfully patched queue_3_msg_7_handler "
+            f"-> 0x{QUEUE_3_MSG_7_HANDLER:08X}"
         )
 
     finally:
